@@ -42,7 +42,6 @@ class Nodes(models.Model):
     internalip = models.CharField(default=None, max_length=30, null=False)
 
 
-
 class VMS(models.Model):
     """
     Virtual Machine
