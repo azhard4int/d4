@@ -59,3 +59,11 @@ class VMS(models.Model):
     rootpassword = models.CharField(default=None, max_length=200)
     templateid = models.IntegerField(default=0)
     vncport = models.CharField(default=None, max_length=30)
+
+
+class Commands(models.Model):
+
+
+    node = models.ForeignKey(Nodes, max_length=64, null=False, default=None)
+    vm = models.ForeignKey(VMS, max_length=64, null=False, default=None)
+    action = models.TextField(null=False, default=None)
