@@ -42,7 +42,7 @@ class VMS(models.Model):
     """
     Virtual Machine
     """
-    name = models.CharField(default=None, max_length=255)
+    name = models.CharField(default=None, max_length=255, unique=True)
     client = models.ForeignKey(User, default=None)
     node = models.ForeignKey(Nodes, default=None)
     mainipaddress = models.CharField(default=None, max_length=30)
@@ -58,7 +58,6 @@ class VMS(models.Model):
 
 
 class Commands(models.Model):
-
 
     node = models.ForeignKey(Nodes, max_length=64, null=False, default=None)
     vm = models.ForeignKey(VMS, max_length=64, null=False, default=None)
