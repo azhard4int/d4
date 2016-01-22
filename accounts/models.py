@@ -43,6 +43,8 @@ class VMSManager(models.Manager):
     def list_all_vms(self, client_id):
         return self.filter(client_id=client_id)
 
+    def vm_node(self, vm_id, client_id):
+        return self.filter(client_id=client_id, id=vm_id)[0]
 
 class VMS(models.Model):
     """
