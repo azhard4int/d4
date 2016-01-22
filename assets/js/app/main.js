@@ -1,7 +1,7 @@
 /**
  * Created by azhar on 1/18/16.
  */
-var BASE_URL = "http://127.0.0.1/"
+var BASE_URL = "http://66.85.92.16:8000/"
 function generate_token()
 {
     var csrf_token = document.getElementsByName('csrfmiddlewaretoken')[0].value
