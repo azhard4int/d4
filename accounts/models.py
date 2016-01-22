@@ -25,10 +25,6 @@ class Packages(models.Model):
     kvmswap = models.CharField(default=1024, blank=True, null=True, max_length=30)
     bandwidth = models.CharField(default=None, blank=True, null=True, max_length=200)
     cpus = models.CharField(default=4, blank=True, null=True, max_length=100)
-    template = models.TextField(default=None, blank=True, null=True)
-
-
-    vncpass = models.CharField(default=None, max_length=200)
 
 
 class Nodes(models.Model):
