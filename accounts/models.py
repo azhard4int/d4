@@ -78,5 +78,5 @@ class Commands(models.Model):
 
 
 class Errors(models.Model):
-    client = models.ForeignKey(User, default=None)
+    command = models.ForeignKey(Commands, default=None)
     message = models.TextField(default=None)
