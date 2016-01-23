@@ -64,6 +64,7 @@ class VMS(models.Model):
     templateid = models.IntegerField(default=0)
     vncport = models.CharField(default=None, max_length=30)
     vm_state = models.SmallIntegerField(default=1) # 0 for off, 1 is for on and 2 is for suspended.
+
     objects = VMSManager()
 
 
@@ -73,3 +74,8 @@ class Commands(models.Model):
     vm = models.ForeignKey(VMS, max_length=64, null=False, default=None)
     action = models.TextField(null=False, default=None)
     executed = models.BooleanField(default=False)
+
+
+class Errors(models.Model):
+    client = models.ForeignKey(User, default=None)
+    message = models.TextField(default=None)
