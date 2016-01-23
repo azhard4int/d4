@@ -74,8 +74,9 @@ class Commands(models.Model):
     vm = models.ForeignKey(VMS, max_length=64, null=False, default=None)
     action = models.TextField(null=False, default=None)
     executed = models.BooleanField(default=False)
+    failed = models.BooleanField(default=False)
 
 
 class Errors(models.Model):
-    client = models.ForeignKey(User, default=None)
+    command = models.ForeignKey(Commands, default=None)
     message = models.TextField(default=None)
