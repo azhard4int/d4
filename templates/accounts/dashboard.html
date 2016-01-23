@@ -18,6 +18,9 @@
                     <th>
                         OS
                     </th>
+                    <th>
+                        Status
+                    </th>
                     <th colspan="3">
                         actions
                     </th>
@@ -36,6 +39,15 @@
                     </td>
                     <td>
                         {{ vm.template }}
+                    </td>
+                    <td>
+                        {% if vm.vm_state == 1 %}
+                            Running
+                        {% elif vm.vm_state == 0 %}
+                            OFF
+                        {% else %}
+                            Suspended
+                        {% endif %}
                     </td>
                     <td>
                         <a href="javascript:;" onClick="user.vm_start({{ vm.id }})" >Start</a>
