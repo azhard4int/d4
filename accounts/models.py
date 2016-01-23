@@ -72,3 +72,4 @@ class Commands(models.Model):
     node = models.ForeignKey(Nodes, max_length=64, null=False, default=None)
     vm = models.ForeignKey(VMS, max_length=64, null=False, default=None)
     action = models.TextField(null=False, default=None)
+    executed = models.BooleanField(default=False)
