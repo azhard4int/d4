@@ -63,6 +63,8 @@ class VMS(models.Model):
     rootpassword = models.CharField(default=None, max_length=200)
     templateid = models.IntegerField(default=0)
     vncport = models.CharField(default=None, max_length=30)
+    vm_state = models.SmallIntegerField(default=1) # 0 for off, 1 is for on and 2 is for suspended.
+
 
     objects = VMSManager()
 
