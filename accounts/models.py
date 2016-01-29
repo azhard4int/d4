@@ -68,6 +68,11 @@ class VMS(models.Model):
     objects = VMSManager()
 
 
+class CommandsManager(models.Manager):
+
+    def is_command_exist(self, vm_id):
+        return self.filter(vm_id=vm_id, executed=False)
+
 class Commands(models.Model):
 
     node = models.ForeignKey(Nodes, max_length=64, null=False, default=None)
@@ -75,6 +80,8 @@ class Commands(models.Model):
     action = models.TextField(null=False, default=None)
     executed = models.BooleanField(default=False)
     failed = models.BooleanField(default=False)
+
+    objects = CommandsManager()
 
 
 class Errors(models.Model):

@@ -60,7 +60,10 @@ class UserLogout(View):
 def vm_start(request):
 
     if request.POST['vm_id'].isdigit():
-        node = VMS.objects.vm_node(request.POST['vm_id'], request.user.id)
+        if not Commands.objects.is_command_exist(request.POST['vm_id']):
+            node = VMS.objects.vm_node(request.POST['vm_id'], request.user.id)
+        else:
+            return HttpResponse(json.dumps({'status':'Command Already Exists'}))
     else:
         return HttpResponse(json.dumps({'status':'Invalid Virtual Machine ID Passed'}))
     Commands(node_id=node.node_id,vm_id=request.POST['vm_id'], action='Start').save()
@@ -70,6 +73,10 @@ def vm_start(request):
 def vm_pause(request):
 
     if request.POST['vm_id'].isdigit():
+        if not Commands.objects.is_command_exist(request.POST['vm_id']):
+            node = VMS.objects.vm_node(request.POST['vm_id'], request.user.id)
+        else:
+            return HttpResponse(json.dumps({'status':'Command Already Exists'}))
         node = VMS.objects.vm_node(request.POST['vm_id'], request.user.id)
     else:
         return HttpResponse(json.dumps({'status':'Invalid Virtual Machine ID Passed'}))
@@ -79,6 +86,10 @@ def vm_pause(request):
 def vm_shutdown(request):
 
     if request.POST['vm_id'].isdigit():
+        if not Commands.objects.is_command_exist(request.POST['vm_id']):
+            node = VMS.objects.vm_node(request.POST['vm_id'], request.user.id)
+        else:
+            return HttpResponse(json.dumps({'status':'Command Already Exists'}))
         node = VMS.objects.vm_node(request.POST['vm_id'], request.user.id)
     else:
         return HttpResponse(json.dumps({'status':'Invalid Virtual Machine ID Passed'}))
@@ -89,6 +100,10 @@ def vm_shutdown(request):
 def vm_reboot(request):
 
     if request.POST['vm_id'].isdigit():
+        if not Commands.objects.is_command_exist(request.POST['vm_id']):
+            node = VMS.objects.vm_node(request.POST['vm_id'], request.user.id)
+        else:
+            return HttpResponse(json.dumps({'status':'Command Already Exists'}))
         node = VMS.objects.vm_node(request.POST['vm_id'], request.user.id)
     else:
         return HttpResponse(json.dumps({'status':'Invalid Virtual Machine ID Passed'}))
