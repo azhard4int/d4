@@ -127,6 +127,7 @@ MEDIA_URL = '/media/'
 TEMPLATES_DATA = {}
 TEMPLATES_DATA['base'] = 'templates/base'
 TEMPLATES_DATA['accounts'] = 'templates/accounts'
+TEMPLATES_DATA['profile'] = 'templates/accounts/profile'
 
 TEMPLATES = [
     {
@@ -135,6 +136,7 @@ TEMPLATES = [
             BASE_DIR.child('templates'),
             BASE_DIR.join(TEMPLATES_DATA['base']),
             BASE_DIR.join(TEMPLATES_DATA['accounts']),
+            BASE_DIR.join(TEMPLATES_DATA['profile']),
         ),
         'APP_DIRS': True,
         'OPTIONS': {

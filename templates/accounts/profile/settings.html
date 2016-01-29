@@ -1,0 +1,18 @@
+{% extends 'base/header.html' %}
+{% block body_block %}
+    {% include 'base/menu.html' %}
+    {% csrf_token %}
+    <div class="container">
+        <div class="col-md-12">
+            <form id="profileSettings" method="POST">
+                {% csrf_token %}
+                <input type="email" placeholder="email" class="form-control" name="email" id="" value="{{ user.email }}"><br>
+                <input type="text" placeholder="First Name" class="form-control" name="first_name" id="" value="{{ user.first_name }}"><br>
+                <input type="text" placeholder="Last Name" class="form-control" name="last_name" id="" value="{{ user.last_name }}"><br>
+                <input type="text" placeholder="Company" class="form-control" name="company" id="" value="{{user_profile.company }}"><br>
+                <input type="text" placeholder="Phone No" class="form-control" name="phone" id="" ><br>
+                <a href="javascript:;" onClick="user.profile_settings()">Submit Information</a>
+            </form>
+        </div>
+    </div>
+{% endblock %}

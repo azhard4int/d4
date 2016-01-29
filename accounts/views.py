@@ -8,6 +8,7 @@ from django.utils.decorators import method_decorator
 
 from models import *
 
+
 import simplejson as json
 
 
@@ -32,6 +33,7 @@ class UserIndex(View):
             return False
 
 
+# Dashboard view with existing VM's
 class UserDashboard(View):
 
     method_decorator(login_required)
@@ -48,6 +50,34 @@ class UserDashboard(View):
         return HttpResponse(json.dumps({'status': True}))
 
 
+#User profile setings view
+class UserProfileSettings(View):
+
+    method_decorator(login_required)
+    def get(self, request):
+        user_profile = None
+        try:
+            user_profle = Profile.objects.filter(user_id=request.user.id)[0]
+        except IndexError:
+            user_profile = None
+            pass
+        return render(request, 'accounts/profile/settings.html', {'title': 'Settings', 'user': request.user,
+                                                                  'user_profile': user_profile })
+
+    method_decorator(login_required)
+    def post(self, request):
+        if request.POST['first_name'] is None or request.POST['first_name'] == '':
+            return HttpResponse(json.dumps({'status': 'Please Enter Your First Name'}))
+        if request.POST['last_name'] is None or request.POST['last_name'] == '':
+            return HttpResponse(json.dumps({'status': 'Please Enter Your Last Name'}))
+        User.objects.filter(id=request.user.id).update(first_name=request.POST['first_name'],last_name=request.POST['last_name'])
+        try:
+            Profile.objects.filter(user_id=request.user.id).update(company=request.POST['company'])
+        except IndexError:
+            pass
+        return HttpResponse(json.dumps({'status': True}))
+
+
 class UserLogout(View):
 
     def get(self, request):
@@ -60,7 +90,7 @@ class UserLogout(View):
 def vm_start(request):
 
     if request.POST['vm_id'].isdigit():
-        if not Commands.objects.is_command_exist(request.POST['vm_id']):
+        if not Commands.objects.is_command_exist(request.POST['vm_id']): # if the user already command does not exist already
             node = VMS.objects.vm_node(request.POST['vm_id'], request.user.id)
         else:
             return HttpResponse(json.dumps({'status':'Command Already Exists'}))
@@ -73,7 +103,7 @@ def vm_start(request):
 def vm_pause(request):
 
     if request.POST['vm_id'].isdigit():
-        if not Commands.objects.is_command_exist(request.POST['vm_id']):
+        if not Commands.objects.is_command_exist(request.POST['vm_id']): # if the user already command does not exist already
             node = VMS.objects.vm_node(request.POST['vm_id'], request.user.id)
         else:
             return HttpResponse(json.dumps({'status':'Command Already Exists'}))
@@ -86,7 +116,7 @@ def vm_pause(request):
 def vm_shutdown(request):
 
     if request.POST['vm_id'].isdigit():
-        if not Commands.objects.is_command_exist(request.POST['vm_id']):
+        if not Commands.objects.is_command_exist(request.POST['vm_id']): # if the user already command does not exist already
             node = VMS.objects.vm_node(request.POST['vm_id'], request.user.id)
         else:
             return HttpResponse(json.dumps({'status':'Command Already Exists'}))
@@ -100,7 +130,7 @@ def vm_shutdown(request):
 def vm_reboot(request):
 
     if request.POST['vm_id'].isdigit():
-        if not Commands.objects.is_command_exist(request.POST['vm_id']):
+        if not Commands.objects.is_command_exist(request.POST['vm_id']): # if the user already command does not exist already
             node = VMS.objects.vm_node(request.POST['vm_id'], request.user.id)
         else:
             return HttpResponse(json.dumps({'status':'Command Already Exists'}))
