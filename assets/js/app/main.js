@@ -81,9 +81,15 @@ user.vm_reboot = function(vm_id)
 user.vm_success_message = function(m)
 {
 
-}
+};
 
 user.vm_error_message = function(m)
 {
 
-}
+};
+
+user.profile_settings = function()
+{
+     var formData = $('#profileSettings').serialize();
+     ajax_request_post('/user/settings/', formData, user.login_success, user.login_failed)
+};
